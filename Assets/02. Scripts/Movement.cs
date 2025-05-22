@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    public float moveSpeed ;
+    public float moveSpeed = 5f;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,6 +16,7 @@ public class Movement : MonoBehaviour
     {
         //this.transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
 
+        /*
         if(Input.GetKey(KeyCode.W))
         {
             transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
@@ -32,5 +33,15 @@ public class Movement : MonoBehaviour
         {
             transform.position += Vector3.right * moveSpeed * Time.deltaTime;
         }
+        */  // legacy input system
+
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+
+        Vector3 dir = new Vector3(h, 0, v);
+        Debug.Log($"현재 입력 : {dir}");
+
+        transform.position += dir * (moveSpeed * Time.deltaTime);
+        
     }
 }
