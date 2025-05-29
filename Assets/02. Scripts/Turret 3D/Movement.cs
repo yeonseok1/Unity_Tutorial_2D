@@ -41,7 +41,6 @@ public class Movement : MonoBehaviour
         Vector3 dir = new Vector3(h, 0, v);
         Vector3 nomalDir = dir.normalized;
 
-        Debug.Log($"현재 입력 : {dir}");
 
         transform.position += nomalDir * (moveSpeed * Time.deltaTime);
 
