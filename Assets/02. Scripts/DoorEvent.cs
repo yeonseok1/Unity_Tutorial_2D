@@ -14,4 +14,9 @@ public class DoorEvent : MonoBehaviour
         animator.SetTrigger("Open");
     }
 
+    void OnTriggerExit(Collider other)
+    {
+        animator.SetTrigger("Close");
+    }
+
 }
