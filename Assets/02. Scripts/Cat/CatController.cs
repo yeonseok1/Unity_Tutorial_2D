@@ -1,16 +1,23 @@
 using UnityEngine;
+using Cat;
 
 public class CatController : MonoBehaviour
 {
-    private Rigidbody2D catRb;
-    public float jumpPower = 15f;
+    public SoundManager soundManager;
 
+    private Rigidbody2D catRb;
+    private Animator anim;
+
+    public float jumpPower = 15f;
     public bool isGround = false;
+
     public int jumpCount = 0;
+
 
     void Start()
     {
         catRb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     void Update()
@@ -18,6 +25,8 @@ public class CatController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && (jumpCount < 2))
         {
             catRb.AddForceY(jumpPower, ForceMode2D.Impulse);
+            anim.SetTrigger("Jump");
+            soundManager.OnJumpSound();
             jumpCount++;
         }
     }
@@ -28,6 +37,7 @@ public class CatController : MonoBehaviour
         {
             jumpCount = 0;
             isGround = true;
+            anim.SetTrigger("OnGround");
         }
     }
 
