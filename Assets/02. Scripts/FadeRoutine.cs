@@ -13,15 +13,13 @@ public class FadeRoutine : MonoBehaviour
         // StartCoroutine(FadeRoutineA(fadeTime, isFadeOut));
     }
 
-    private void Update()
+    public void OnFade(float _fadeTime, bool _isFadeOut, Color _fColor)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(FadeRoutineA(fadeTime, isFadeOut));
-        }
+        StartCoroutine(FadeRoutineA(_fadeTime, _isFadeOut, _fColor));
     }
 
-    IEnumerator FadeRoutineA(float fTime, bool isFO)
+
+    IEnumerator FadeRoutineA(float fTime, bool isFO, Color fColor)
     {
         float timer = 0f;
         float percent = 0f;
@@ -33,7 +31,7 @@ public class FadeRoutine : MonoBehaviour
             percent = timer / fTime;
             value = isFO ? percent : 1 - percent;
 
-            fadePanel.color = new Color(fadePanel.color.r, fadePanel.color.g, fadePanel.color.b, value);
+            fadePanel.color = new Color(fColor.r, fColor.g, fColor.b, value);
             yield return null;
         }
     }
