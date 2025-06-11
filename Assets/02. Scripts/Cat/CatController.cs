@@ -1,15 +1,14 @@
 using UnityEngine;
 using Cat;
+using System.Collections;
 
 public class CatController : MonoBehaviour
 {
     public SoundManager soundManager;
+    public VideoManager videoManager;
 
     public GameObject gameOverUI;
     public GameObject fadeUI;
-
-    public GameObject happyVideo;
-    public GameObject sadVideo;
 
     private Rigidbody2D catRb;
     private Animator anim;
@@ -58,7 +57,8 @@ public class CatController : MonoBehaviour
                 fadeUI.GetComponent<FadeRoutine>().OnFade(2f, true, Color.white);
                 this.GetComponent<CircleCollider2D>().enabled = false;
 
-                Invoke("HappyVideo", 5f);
+                //Invoke("HappyVideo", 5f);
+                StartCoroutine(EndingRoutine(true));
             }
         }
     }
@@ -80,7 +80,8 @@ public class CatController : MonoBehaviour
             fadeUI.GetComponent<FadeRoutine>().OnFade(2f, true, Color.black);
             this.GetComponent<CircleCollider2D>().enabled = false;
 
-            Invoke("SadVideo", 5f);
+            //Invoke("SadVideo", 5f);
+            StartCoroutine(EndingRoutine(false));
         }
     }
 
@@ -92,21 +93,36 @@ public class CatController : MonoBehaviour
         }
     }
 
-    private void HappyVideo()
+    IEnumerator EndingRoutine(bool isHappy)
     {
-        happyVideo.SetActive(true);
+        yield return new WaitForSeconds(3.5f);
+
+        videoManager.VideoPlay(isHappy);
+
+        yield return new WaitUntil(() => videoManager.vPlayer.isPlaying);
+
         fadeUI.SetActive(false);
         gameOverUI.SetActive(false);
-
         soundManager.audioSource.mute = true;
     }
 
-    private void SadVideo()
-    {
-        sadVideo.SetActive(true);
-        fadeUI.SetActive(false);
-        gameOverUI.SetActive(false);
+    //private void HappyVideo()
+    //{
+    //    videoManager.VideoPlay(true);
 
-        soundManager.audioSource.mute = true;
-    }
+    //    fadeUI.SetActive(false);
+    //    gameOverUI.SetActive(false);
+
+    //    soundManager.audioSource.mute = true;
+    //}
+
+    //private void SadVideo()
+    //{
+    //    videoManager.VideoPlay(false);
+
+    //    fadeUI.SetActive(false);
+    //    gameOverUI.SetActive(false);
+
+    //    soundManager.audioSource.mute = true;
+    //}
 }
