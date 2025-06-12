@@ -7,15 +7,18 @@ namespace Cat
     public class UIManager : MonoBehaviour
     {
         public SoundManager soundManager;
+        public GameObject gamemManager;
 
         public GameObject playObj;
         public GameObject introUI;
         public GameObject playUI;
+        public GameObject videoPanel;
 
         public TMP_InputField inputField;
         public TextMeshProUGUI nameTextUI;
 
         public Button startButton;
+        public Button restartButton;
 
         private void Awake()
         {
@@ -28,6 +31,7 @@ namespace Cat
         void Start()
         {
             startButton.onClick.AddListener(OnStartButton);
+            restartButton.onClick.AddListener(OnRestartButton);
         }
 
         public void OnStartButton()
@@ -50,6 +54,14 @@ namespace Cat
                 introUI.SetActive(false);
 
             }
+        }
+
+        public void OnRestartButton()
+        {
+
+            GameManager.ResetScore();
+            playObj.SetActive(true);
+            videoPanel.SetActive(false);
         }
     }
 }

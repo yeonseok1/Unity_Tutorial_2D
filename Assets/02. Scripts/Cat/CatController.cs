@@ -19,13 +19,29 @@ public class CatController : MonoBehaviour
     public int jumpCount = 0;
 
 
-    void Start()
+    void Awake()
     {
         catRb = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
     }
 
+    private void OnEnable()
+    {
+        transform.localPosition = Vector3.zero;
+
+        transform.localPosition = new Vector3 (-7f, 0f, 0f);
+
+        GetComponent<CircleCollider2D>().enabled = true;
+        soundManager.audioSource.Play();
+
+    }
+
     void Update()
+    {
+        Jump();
+    }
+
+    void Jump()
     {
         if (Input.GetKeyDown(KeyCode.Space) && (jumpCount < 1000))
         {
@@ -54,7 +70,7 @@ public class CatController : MonoBehaviour
             if (GameManager.score >= 10)
             {
                 fadeUI.SetActive(true);
-                fadeUI.GetComponent<FadeRoutine>().OnFade(2f, true, Color.white);
+                fadeUI.GetComponent<FadeRoutine>().OnFade(2f, Color.white, true);
                 this.GetComponent<CircleCollider2D>().enabled = false;
 
                 //Invoke("HappyVideo", 5f);
@@ -77,7 +93,7 @@ public class CatController : MonoBehaviour
 
             gameOverUI.SetActive(true);
             fadeUI.SetActive(true);
-            fadeUI.GetComponent<FadeRoutine>().OnFade(2f, true, Color.black);
+            fadeUI.GetComponent<FadeRoutine>().OnFade(2f, Color.black, true);
             this.GetComponent<CircleCollider2D>().enabled = false;
 
             //Invoke("SadVideo", 5f);
@@ -98,12 +114,20 @@ public class CatController : MonoBehaviour
         yield return new WaitForSeconds(3.5f);
 
         videoManager.VideoPlay(isHappy);
-
-        yield return new WaitUntil(() => videoManager.vPlayer.isPlaying);
-
-        fadeUI.SetActive(false);
         gameOverUI.SetActive(false);
-        soundManager.audioSource.mute = true;
+        //soundManager.audioSource.mute = true;
+        soundManager.audioSource.Stop();
+
+        yield return new WaitForSeconds(0.5f);
+
+        var newColor = isHappy ? Color.white : Color.black;
+        fadeUI.GetComponent<FadeRoutine>().OnFade(3f, newColor, false);
+
+        yield return new WaitForSeconds(3f);
+        fadeUI.SetActive(false);
+        
+
+        transform.parent.gameObject.SetActive(false);
     }
 
     //private void HappyVideo()
