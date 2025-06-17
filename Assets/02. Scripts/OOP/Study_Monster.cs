@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Study_Monster : MonoBehaviour
 {
+    /*
     List<Orc> orcs = new List<Orc>();
     List<Goblin> goblins = new List<Goblin>();
 
@@ -23,12 +24,12 @@ public class Study_Monster : MonoBehaviour
         /// 업 캐스팅
         // 명시적 클래스 형변환
         Monster m1 = (Monster)orc;  
-        Monster m2 = (Monster)goblin;
+        //Monster m2 = (Monster)goblin;
 
         // 암시적 클래스 형변환
         Monster m3 = orc;
-        Monster m4 = goblin;
+        //Monster m4 = goblin;
         monsters.Add(orc);
-        monsters.Add(goblin);
-    }
+        //monsters.Add(goblin);
+    }*/
 }
