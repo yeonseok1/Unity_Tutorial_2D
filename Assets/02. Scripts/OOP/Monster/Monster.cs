@@ -1,18 +1,26 @@
+using System.Collections;
 using UnityEngine;
 
 public abstract class Monster : MonoBehaviour
 {
+    [SerializeField] SpawnManager spawner;
     SpriteRenderer sRenderer;
+    Animator animator;
 
     [SerializeField] protected float hp = 3f;
     [SerializeField] protected float moveSpeed = 3f;
     int dir = 1;
+    bool isMove = true;
+    private bool isHit = false;
 
     public abstract void Init();
 
     private void Start()
     {
+        spawner = FindFirstObjectByType<SpawnManager>();
+
         sRenderer = GetComponent<SpriteRenderer>();
+        animator = GetComponent<Animator>();
 
         Init();
     }
@@ -24,11 +32,14 @@ public abstract class Monster : MonoBehaviour
 
     void OnMouseDown()
     {
-        Hit(1);
+        //if (isHit) return;
+        StartCoroutine(Hit(1));
     }
 
     void Movement()
     {
+        if (!isMove) return;
+
         transform.position += Vector3.right * moveSpeed * dir * Time.deltaTime;
 
         if (transform.position.x > 8f)
@@ -43,15 +54,32 @@ public abstract class Monster : MonoBehaviour
         }
     }
 
-    void Hit(float damage)
+    IEnumerator Hit(float damage)
     {
+        if (isHit) 
+            yield break;
+        isHit = true;
+        isMove = false;
+        animator.SetTrigger("Hit");
+
         hp -= damage;
 
-        if ( hp <= 0)
+        yield return new WaitForSeconds(0.2f);
+        if (hp <= 0)
         {
-            Debug.Log("¸ó½ºÅÍ Á×À½");
+            animator.SetTrigger("Death");
+            yield return new WaitForSeconds(0.5f);
+
+            spawner.DropCoin(transform.position);
+
+            yield return new WaitForSeconds(0.5f);
+
             Destroy(gameObject);
         }
+        yield return new WaitForSeconds(0.2f);
+
+        isMove = true;
+        isHit = false;
     }
 
     /*
