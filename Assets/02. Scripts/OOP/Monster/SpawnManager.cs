@@ -1,9 +1,13 @@
+using NUnit.Framework;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
     [SerializeField] GameObject[] monsters;   // 몬스터 종류가 이미 정해진 상태
+
+    private List<Monster> monstersList = new List<Monster>();
 
     [SerializeField] GameObject[] items;
 

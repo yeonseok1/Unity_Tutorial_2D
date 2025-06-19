@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6487601314599493749}
   - component: {fileID: -1471035011592082233}
   - component: {fileID: 4149774326074022664}
+  - component: {fileID: 6324799953589856973}
   m_Layer: 10
   m_Name: HP Potion
   m_TagString: Untagged
@@ -152,3 +153,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &6324799953589856973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6504191509888643145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6628ec1b10e7ac245adb8a6348b5965f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  potionType: 0

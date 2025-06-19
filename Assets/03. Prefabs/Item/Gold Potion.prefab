@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 2060789447326652758}
   - component: {fileID: 2015123343843705926}
   - component: {fileID: 5165813252672127472}
+  - component: {fileID: 1571265944188838254}
   m_Layer: 10
   m_Name: Gold Potion
   m_TagString: Untagged
@@ -152,3 +153,16 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &1571265944188838254
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 906917832493154777}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6628ec1b10e7ac245adb8a6348b5965f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  potionType: 0
